@@ -1,0 +1,40 @@
+{
+  "name": "tele-sails-api",
+  "private": true,
+  "version": "0.0.0",
+  "description": "a Sails application",
+  "keywords": [],
+  "dependencies": {
+    "@sailshq/lodash": "^3.10.3",
+    "jsonwebtoken": "^9.0.0",
+    "node-fetch": "^2.6.9",
+    "nodemailer": "^6.9.1",
+    "nodemailer-express-handlebars": "^6.0.0",
+    "nodemailer-sendgrid": "^1.0.3",
+    "nodemon": "^2.0.22",
+    "sails": "^1.5.4",
+    "sails-hook-organics": "^2.2.1",
+    "sails-hook-orm": "^4.0.0",
+    "sails-hook-sockets": "^2.0.0",
+    "sails-postgresql": "^5.0.1"
+  },
+  "devDependencies": {
+    "eslint": "5.16.0"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node app.js",
+    "test": "npm run lint && npm run custom-tests && echo 'Done.'",
+    "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
+    "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sonnt/tele-sails-api.git"
+  },
+  "author": "sonnt",
+  "license": "",
+  "engines": {
+    "node": "^18.13"
+  }
+}
