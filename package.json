@@ -6,8 +6,10 @@
   "keywords": [],
   "dependencies": {
     "@sailshq/lodash": "^3.10.3",
+    "dotenv": "^16.0.3",
     "jsonwebtoken": "^9.0.0",
     "node-fetch": "^2.6.9",
+    "node-metamask": "^1.1.2",
     "nodemailer": "^6.9.1",
     "nodemailer-express-handlebars": "^6.0.0",
     "nodemailer-sendgrid": "^1.0.3",

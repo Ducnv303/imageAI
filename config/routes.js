@@ -17,4 +17,5 @@ module.exports.routes = {
   'POST /user/reset-password': 'user/reset-password',
   'GET /user/my-account': 'user/my-account',
   'GET /image-genorator/text-2-image':'image-genorator/text-2-image',
+  'GET /mint-nft/dowload-image':'mint-nft/dowload-image',
 };

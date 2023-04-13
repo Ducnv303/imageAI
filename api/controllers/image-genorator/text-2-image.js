@@ -1,6 +1,6 @@
 
 const Replicate = require('replicate')
-
+require('dotenv').config();
 
 module.exports = {
 
@@ -14,9 +14,18 @@ module.exports = {
   inputs: {
     textInputs: {
       type: 'string',
+      required: true,
+    },
+    imageScale: {
+      type: 'string',
+      default: '768x768',
       required: false,
     },
-
+    numOutputs: {
+      type: 'number',
+      require: false,
+      default: 1
+    }
   },
 
 
@@ -27,24 +36,24 @@ module.exports = {
   },
 
 
-  fn: async function (inputs,exits) {
+  fn: async function (inputs, exits) {
     const { default: fetch } = await import('node-fetch');
     const replicate = new Replicate({
-      auth: '45a11726d0a3e5d889abe82e698f6e32364d902f',
+      auth: process.env.REPLICATE_API_TOKEN,
       fetch: fetch
     });
-    const input = { prompt: inputs.textInputs };
-    const model = "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf";
+    const input = {
+      prompt: inputs.textInputs,
+      image_dimensions: inputs.imageScale,
+      num_outputs: inputs.numOutputs
+    };
+    const model = process.env.MODEL_STABILITY;
     try {
-      let prediction = await replicate.run(model, {input});
+      let prediction = await replicate.run(model, { input });
       console.log(prediction);
-      exits.success({message: 'ok'});
+      exits.success({ message: 'ok' });
     } catch (error) {
-
       console.log(error);
-
     }
   }
-
-
 };
