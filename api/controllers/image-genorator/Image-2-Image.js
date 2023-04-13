@@ -1,73 +1,73 @@
 
-const Replicate = require('replicate')
-
-
-// module.exports = async function imagesss(req, res) {
-//   const replicate = new Replicate({
-//     auth: '45a11726d0a3e5d889abe82e698f6e32364d902f',
-//   });
-//   const model = "andreasjansson/blip-2:4b32258c42e9efd4288bb9910bc532a69727f9acd26aa08e175713a0a857a608";
-//   const input = {
-//     image: "https://replicate.delivery/pbxt/IJEPmgAlL2zNBNDoRRKFegTEcxnlRhoQxlNjPHSZEy0pSIKn/gg_bridge.jpeg",
-//     question: "what body of water does this bridge cross?"
-//   };
-//   let prediction = await replicate.run(model, { input });
-
-//   // If no user was found, redirect to signup.
-//   // if (!prediction) {
-//   //   console.log(prediction);
-//   // }
-
-//   console.log(prediction);
-
-// }
-
-
-
+const Replicate = require('replicate');
+require('dotenv').config();
 
 module.exports = {
 
 
   friendlyName: 'ImageAi',
 
-
-  description: 'text to image',
-
+  description: 'image to image',
 
   inputs: {
     textInputs: {
       type: 'string',
-      required: false,
+      required: true,
     },
-
+    initImage: {
+      type: 'string',
+      required: true,
+    },
+    captioningModel: {
+      type: 'string',
+      require: false,
+      default: 'blip'
+    },
+    structuralImageStrength: {
+      type: 'number',
+      require: false,
+      default: 0.15
+    },
+    conceptualImageStrength: {
+      type: 'number',
+      require: false,
+      default: 0.4
+    },
+    seed: {
+      type: 'number',
+      require: false
+    }
   },
 
 
   exits: {
     success: {
-      description: ' successful',
+      description: ' successfull',
     },
   },
 
 
-  fn: async function (_,exits) {
+  fn: async function (inputs, exits) {
     const { default: fetch } = await import('node-fetch');
     const replicate = new Replicate({
-      auth: '45a11726d0a3e5d889abe82e698f6e32364d902f',
+      auth: "bad447f0a9d55e6cb3c84edc9af6b3dcfca15c8d",
       fetch: fetch
     });
-    const input = { prompt: "an astronaut riding a horse on mars, hd, dramatic lighting, detailed" };
-    const model = "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf";
+    const input = {
+      prompt: inputs.textInputs,
+      init_image: inputs.initImage,
+      captioning_model: inputs.captioningModel,
+      structural_image_strength: inputs.structuralImageStrength,
+      conceptual_image_strength: inputs.conceptualImageStrength,
+      seed: inputs.seed
+    };
+    const model = "vivalapanda/conceptual-image-to-image:d0742988ca2894860b9f19cb18eeaaa446c6812f700296520fc823330503d861";
     try {
-      let prediction = await replicate.run(model, {input});
+      let prediction = await replicate.run(model, { input });
       console.log(prediction);
-      exits.success({message: 'ok'});
+      exits.success({ message: 'ok' });
     } catch (error) {
-
       console.log(error);
-
     }
   }
-
-
 };

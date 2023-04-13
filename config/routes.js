@@ -18,4 +18,5 @@ module.exports.routes = {
   'GET /user/my-account': 'user/my-account',
   'GET /image-genorator/text-2-image':'image-genorator/text-2-image',
   'GET /mint-nft/dowload-image':'mint-nft/dowload-image',
+  'POST /image-genorator/image-2-image':'image-genorator/image-2-image',
 };
