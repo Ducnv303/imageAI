@@ -48,10 +48,11 @@ module.exports = {
       num_outputs: inputs.numOutputs
     };
     const model = process.env.MODEL_STABILITY;
+    
     try {
       let prediction = await replicate.run(model, { input });
       console.log(prediction);
-      exits.success({ message: 'ok' });
+      exits.success({ message: 'ok',link:prediction });
     } catch (error) {
       console.log(error);
     }
