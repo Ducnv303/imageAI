@@ -1,4 +1,6 @@
 
+
+
 module.exports = function uploadFile(req, res) {
   req.file('file').upload({
     // don't allow the total upload size to exceed ~10MB
@@ -15,8 +17,9 @@ module.exports = function uploadFile(req, res) {
 
     // Get the base URL for our deployed application from our custom config
     // (e.g. this might be "http://foobar.example.com:1339" or "https://example.com")
-    sails.log("uploadedFiles[0].fd", uploadedFiles[0].fd)
+    sails.log("uploadedFiles[0].fd", uploadedFiles[0].fd) // file upload image
     return res.ok();
+    
   });
 
 };
