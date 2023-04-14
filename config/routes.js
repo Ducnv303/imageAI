@@ -19,4 +19,7 @@ module.exports.routes = {
   'GET /image-genorator/text-2-image':'image-genorator/text-2-image',
   'GET /mint-nft/dowload-image':'mint-nft/dowload-image',
   'POST /file/upload': 'files/file-upload',
+  'POST /mint-nft/upload-storage':'mint-nft/upload-storage',
+  'GET /file/upload-htpps': 'mint-nft/upload-https',
+
 };

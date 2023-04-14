@@ -17,7 +17,7 @@ module.exports = function uploadFile(req, res) {
 
     // Get the base URL for our deployed application from our custom config
     // (e.g. this might be "http://foobar.example.com:1339" or "https://example.com")
-    sails.log("uploadedFiles[0].fd", uploadedFiles[0].fd) // file upload image
+    sails.log("uploadedFiles[0].fd", uploadedFiles[0].fd) // file uploade
     return res.ok();
     
   });
