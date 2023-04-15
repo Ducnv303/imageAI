@@ -2,35 +2,25 @@
 const {NFTStorage, File} = require('nft.storage')
 const mime = require('mime') 
 const fs =require('fs') 
-const path =require('path') 
+const path =require('path')
+const FormData = require('form-data')
+const axios = require('axios')
 
 module.exports = async function uploadStorage(req, res) {
 
 
     const NFT_STORAGE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEM3MmJiOEY0OTgzMjVmQjI2MDExREYxQjMzNjNCQTA0N2E1MmM5QzIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY4MTM2Nzk4OTQyNiwibmFtZSI6ImltYWdlIn0.eGdK2pkAlTfgVMz58F4xC57IeW_2oGyPaYgrg2rXoZA'
-    
+    const client = new NFTStorage({ token: NFT_STORAGE_KEY })
  
 
     async function fileFromPath(filePath) {
         const content = await fs.promises.readFile(filePath)
         const type = mime.getType(filePath)
+        console.log('a',path.basename(filePath));
         return new File([content], path.basename(filePath), { type })
     }
 
-    async function storeNFT(imagePath, name, description) {
-        // load the file from disk
-        const image = await fileFromPath(imagePath)
-    
-        // create a new NFTStorage client using our API key
-        const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY })
-    
-        // call client.store, passing in the image & metadata
-        return nftstorage.store({
-            image,
-            name,
-            description,
-        })
-    }
+
 
 
     req.file('file').upload({
@@ -51,12 +41,20 @@ module.exports = async function uploadStorage(req, res) {
       sails.log("uploadedFiles[0].fd", uploadedFiles[0].fd) // file upload image
     //   return res.ok();
     if (uploadedFiles[0]) {
-        console.log(uploadedFiles[0].fd);
-        await storeNFT(uploadedFiles[0].fd,'hihi','hihi')
-
+        console.log(uploadedFiles[0]);
+      // let bodyFormdata = new FormData()
+      // bodyFormdata.append('filename',fs.createReadStream(uploadedFiles[0]))
+      axios({
+        method: "post",
+        url: "https://api.nft.storage/upload",
+        data: uploadedFiles[0],
+        headers: { "Content-Type": "image/*","Authorization" : `Bearer ${NFT_STORAGE_KEY}` },
+      }).then(function(response){
+        console.log('a');
+      }) 
       
     }
-      
+    
     });
   
   };
